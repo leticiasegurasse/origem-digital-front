@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, MessageCircle } from 'lucide-react';
 import WhatsAppButton from './WhatsAppButton';
+import CitySelector from './CitySelector';
 import logo from '../../../assets/image/logo-roxo-laranja.svg'
 
 const Header = () => {
@@ -25,6 +26,7 @@ const Header = () => {
 
           {/* Menu Desktop */}
           <nav className="hidden lg:flex items-center gap-6">
+            <CitySelector />
             {menuLinks.map((link) => (
               <Link
                 key={link.to}
@@ -69,6 +71,9 @@ const Header = () => {
         {/* Menu Mobile */}
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 border-t">
+            <div className="mb-4">
+              <CitySelector />
+            </div>
             <nav className="flex flex-col gap-4">
               {menuLinks.map((link) => (
                 <Link

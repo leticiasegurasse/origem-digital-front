@@ -12,7 +12,6 @@ import WhyOrigemDigital from '../components/WhyOrigemDigital';
 import FinalCTA from '../components/FinalCTA';
 import Footer from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
-
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -1,24 +1,19 @@
-import { useState, useEffect } from 'react';
 import { Check, MessageCircle, ChevronDown } from 'lucide-react';
 import { plansData } from '../services/plans';
-import type { City } from '../types/plans';
 import WhatsAppButton from './WhatsAppButton';
+import { useCitySelection } from '../contexts/CityContext';
+import type { City } from '../contexts/CityContext';
 
 const CityPlansSelector = () => {
-  const [selectedCity, setSelectedCity] = useState<City>('Miracema');
+  const { selectedCity, setSelectedCity } = useCitySelection();
 
-  // Carrega a cidade do localStorage na montagem
-  useEffect(() => {
-    const savedCity = localStorage.getItem('selectedCity') as City;
-    if (savedCity && plansData.find((c) => c.city === savedCity)) {
-      setSelectedCity(savedCity);
-    }
-  }, []);
+  // Se não há cidade selecionada, não renderiza nada
+  if (!selectedCity) {
+    return null;
+  }
 
-  // Salva a cidade no localStorage quando muda
   const handleCityChange = (city: City) => {
     setSelectedCity(city);
-    localStorage.setItem('selectedCity', city);
   };
 
   const currentCityPlans = plansData.find((c) => c.city === selectedCity);
