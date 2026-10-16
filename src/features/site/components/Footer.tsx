@@ -1,17 +1,11 @@
 import { Link } from 'react-router-dom';
-import { MessageCircle, Phone, Mail, Clock, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { MessageCircle, Phone, Mail, Clock, Facebook, Instagram } from 'lucide-react';
 import { COMPANY_INFO } from '../utils/company';
-import logoLaranjaBranca from '../../../assets/image/logo-laranja-branca.svg';
-import contratoClientePDF from '../../../assets/docs/Contrato-cliente-G2.pdf';
+import logoLaranjaBranca from '../../../media/image/logo-laranja-branca.svg';
+import contratoClientePDF from '../../../media/docs/Contrato-cliente-G2.pdf'; // TODO: renomear arquivo do contrato
 
 const Footer = () => {
   const links = {
-    navegacao: [
-      { to: '/planos', label: 'Planos' },
-      { to: '/cobertura', label: 'Cobertura' },
-      { to: '/empresas', label: 'Para Empresas' },
-      { to: '/suporte', label: 'Suporte' },
-    ],
     legal: [
       { to: '/termos', label: 'Termos de Uso', isRoute: true },
       { to: '/privacidade', label: 'Política de Privacidade', isRoute: true },
@@ -20,23 +14,25 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: <Facebook size={24} />, url: 'https://www.facebook.com/g2telecom', label: 'Facebook' },
-    { icon: <Instagram size={24} />, url: 'https://www.instagram.com/origemdigitalnet', label: 'Instagram' },
-    { icon: <Linkedin size={24} />, url: 'https://www.linkedin.com/company/g2telecom/', label: 'LinkedIn' },
+    { icon: <Facebook size={20} />, url: 'https://www.facebook.com/origemdigitalsg', label: 'Facebook' },
+    { icon: <Instagram size={20} />, url: 'https://www.instagram.com/origemdigitalsg', label: 'Instagram' },
   ];
 
   return (
-    <footer className="text-white" style={{ backgroundColor: 'var(--color-secondary)' }}>
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+    <footer className="relative bg-[var(--color-dark-900)] border-t border-white/5">
+      {/* Top accent line */}
+      <div className="h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/40 to-transparent" />
+
+      <div className="container mx-auto px-4 py-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
           {/* Logo e Descrição */}
           <div className="text-center md:text-left">
-            <img 
-              src={logoLaranjaBranca} 
-              alt="Origem Digital" 
-              className="h-16 mb-4 mx-auto md:mx-0"
+            <img
+              src={logoLaranjaBranca}
+              alt="Origem Digital"
+              className="h-12 mb-4 mx-auto md:mx-0"
             />
-            <p className="text-gray-300 mb-4">
+            <p className="text-gray-500 text-sm mb-5 leading-relaxed">
               Conectando sua rotina com tecnologia e estabilidade de verdade.
             </p>
             <div className="flex gap-3 justify-center md:justify-start">
@@ -46,10 +42,7 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-white/10 p-2 rounded-lg transition-colors"
-                  style={{ ['--hover-bg' as string]: 'var(--color-primary)' } as React.CSSProperties}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-primary)'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'}
+                  className="glass-card w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 hover:text-[var(--color-primary)] hover:shadow-[0_0_15px_rgba(235,131,0,0.2)] transition-all duration-300"
                   aria-label={social.label}
                 >
                   {social.icon}
@@ -58,33 +51,16 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Navegação 
-          <div>
-            <h3 className="font-bold text-lg mb-4">Navegação</h3>
-            <ul className="space-y-2">
-              {links.navegacao.map((link) => (
-                <li key={link.to}>
-                  <Link
-                    to={link.to}
-                    className="text-gray-300 hover:text-primary transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>*/}
-
           {/* Legal */}
-          <div className="text-center md:text-left">
-            <h3 className="font-bold text-lg mb-4">Legal</h3>
-            <ul className="space-y-2 mx-auto md:mx-0 inline-block md:block text-left">
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="font-bold text-sm text-white mb-4 uppercase tracking-wider">Legal</h3>
+            <ul className="space-y-3">
               {links.legal.map((link, index) => (
-                <li key={link.to || index}>
+                <li key={link.to || index} className="text-center md:text-left">
                   {link.isRoute ? (
                     <Link
                       to={link.to}
-                      className="text-gray-300 hover:text-primary transition-colors"
+                      className="text-gray-500 hover:text-[var(--color-primary)] transition-colors text-sm"
                     >
                       {link.label}
                     </Link>
@@ -93,7 +69,7 @@ const Footer = () => {
                       href={link.to}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-300 hover:text-primary transition-colors"
+                      className="text-gray-500 hover:text-[var(--color-primary)] transition-colors text-sm"
                     >
                       {link.label}
                     </a>
@@ -104,43 +80,38 @@ const Footer = () => {
           </div>
 
           {/* Contato */}
-          <div className="text-center md:text-left">
-            <h3 className="font-bold text-lg mb-4">Contato</h3>
-            <ul className="space-y-3 mx-auto md:mx-0 inline-block md:block text-left">
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="font-bold text-sm text-white mb-4 uppercase tracking-wider">Contato</h3>
+            <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <Phone size={20} className="flex-shrink-0 mt-1" style={{ color: 'var(--color-primary)' }} />
+                <div className="w-8 h-8 rounded-lg bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Phone size={14} className="text-[var(--color-primary)]" />
+                </div>
                 <div>
-                  <div className="text-sm text-gray-400">Telefone</div>
-                  <a
-                    href={`tel:+${COMPANY_INFO.phone}`}
-                    className="transition-colors hover:[color:var(--color-primary)]"
-                  >
+                  <div className="text-xs text-gray-600 mb-0.5">Telefone</div>
+                  <a href={`tel:+${COMPANY_INFO.phone}`} className="text-gray-400 hover:text-[var(--color-primary)] transition-colors text-sm">
                     4003-8398
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <MessageCircle size={20} className="flex-shrink-0 mt-1" style={{ color: 'var(--color-primary)' }} />
+                <div className="w-8 h-8 rounded-lg bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <MessageCircle size={14} className="text-[var(--color-primary)]" />
+                </div>
                 <div>
-                  <div className="text-sm text-gray-400">WhatsApp</div>
-                  <a
-                    href={`https://wa.me/${COMPANY_INFO.phone}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors hover:[color:var(--color-primary)]"
-                  >
+                  <div className="text-xs text-gray-600 mb-0.5">WhatsApp</div>
+                  <a href={`https://wa.me/${COMPANY_INFO.phone}`} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[var(--color-primary)] transition-colors text-sm">
                     4003-8398
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <Mail size={20} className="flex-shrink-0 mt-1" style={{ color: 'var(--color-primary)' }} />
+                <div className="w-8 h-8 rounded-lg bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Mail size={14} className="text-[var(--color-primary)]" />
+                </div>
                 <div>
-                  <div className="text-sm text-gray-400">E-mail</div>
-                  <a
-                    href={`mailto:${COMPANY_INFO.email}`}
-                    className="transition-colors hover:[color:var(--color-primary)] text-sm break-all"
-                  >
+                  <div className="text-xs text-gray-600 mb-0.5">E-mail</div>
+                  <a href={`mailto:${COMPANY_INFO.email}`} className="text-gray-400 hover:text-[var(--color-primary)] transition-colors text-sm break-all">
                     {COMPANY_INFO.email}
                   </a>
                 </div>
@@ -149,47 +120,45 @@ const Footer = () => {
           </div>
 
           {/* Horários */}
-          <div className="text-center md:text-left">
-            <h3 className="font-bold text-lg mb-4">Horários</h3>
-            <ul className="space-y-4 mx-auto md:mx-0 inline-block md:block text-left">
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="font-bold text-sm text-white mb-4 uppercase tracking-wider">Horários</h3>
+            <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <Clock size={20} className="flex-shrink-0 mt-1" style={{ color: 'var(--color-primary)' }} />
+                <div className="w-8 h-8 rounded-lg bg-[var(--color-secondary)]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Clock size={14} className="text-[var(--color-secondary-light)]" />
+                </div>
                 <div>
-                  <div className="text-sm font-semibold text-gray-200">Atendimento Presencial</div>
-                  <p className="text-sm text-gray-300">{COMPANY_INFO.businessHours.presencial.days}</p>
-                  <p className="text-sm text-gray-300">{COMPANY_INFO.businessHours.presencial.hours}</p>
+                  <div className="text-sm font-semibold text-gray-300">Presencial</div>
+                  <p className="text-xs text-gray-500">{COMPANY_INFO.businessHours.presencial.days}</p>
+                  <p className="text-xs text-gray-500">{COMPANY_INFO.businessHours.presencial.hours}</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <Clock size={20} className="flex-shrink-0 mt-1" style={{ color: 'var(--color-primary)' }} />
+                <div className="w-8 h-8 rounded-lg bg-[var(--color-secondary)]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Clock size={14} className="text-[var(--color-secondary-light)]" />
+                </div>
                 <div>
-                  <div className="text-sm font-semibold text-gray-200">Atendimento Online</div>
-                  <p className="text-sm text-gray-300">{COMPANY_INFO.businessHours.online.days}</p>
-                  <p className="text-sm text-gray-300">{COMPANY_INFO.businessHours.online.hours}</p>
+                  <div className="text-sm font-semibold text-gray-300">Online</div>
+                  <p className="text-xs text-gray-500">{COMPANY_INFO.businessHours.online.days}</p>
+                  <p className="text-xs text-gray-500">{COMPANY_INFO.businessHours.online.hours}</p>
                 </div>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Rodapé inferior */}
-        <div className="border-t border-white/20 pt-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-400 text-center md:text-left">
+        {/* Bottom bar */}
+        <div className="border-t border-white/5 pt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600 text-center md:text-left">
             <div>
               <p>
-                © {new Date().getFullYear()} {COMPANY_INFO.legalName} - Origem Digital (anteriormente G2 Telecom). Todos os direitos reservados.
+                &copy; {new Date().getFullYear()} {COMPANY_INFO.legalName} - Origem Digital. Todos os direitos reservados.
               </p>
-              <p className="mt-2">
-                CNPJ: {COMPANY_INFO.cnpj}
-              </p>
+              <p className="mt-1">CNPJ: {COMPANY_INFO.cnpj}</p>
             </div>
             <div className="md:text-right">
-              <p>
-                Provedor de Internet - Serviço de Comunicação Multimídia (SCM)
-              </p>
-              <p className="mt-2">
-                Autorizado e regulamentado pela Anatel
-              </p>
+              <p>Provedor de Internet - Serviço de Comunicação Multimídia (SCM)</p>
+              <p className="mt-1">Autorizado e regulamentado pela Anatel</p>
             </div>
           </div>
         </div>
@@ -199,4 +168,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
